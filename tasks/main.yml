@@ -65,6 +65,7 @@
   register: zeppelin_install_path
 
 - name: Download Zeppelin
+  environment: "{{proxy_env}}"
   get_url:
     url: "{{ zeppelin_download_url }}"
     dest: "/tmp/zeppelin-{{ zeppelin_version }}.tgz"
