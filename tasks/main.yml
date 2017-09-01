@@ -64,12 +64,23 @@
     path: "/opt/zeppelin-{{ zeppelin_version }}-bin-all"
   register: zeppelin_install_path
 
-- name: Download Zeppelin
-  environment: "{{proxy_env}}"
+#- name: Download Zeppelin
+#  environment: "{{proxy_env}}"
+#  get_url:
+#    url: "{{ zeppelin_download_url }}"
+#    dest: "/tmp/zeppelin-{{ zeppelin_version }}.tgz"
+#  when: zeppelin_install_path.stat.exists == False
+#  environment:
+#    http_proxy: http://gateway.ad.renci.org:8080/
+
+- debug: msg="downloading zeppelin"          #spark cache dir {{ spark_cache_dir }} {{ ansible_user }}"
+- name: Download Zeppelin NEW STUFF
+#  environment: "{{proxy_env}}"
   get_url:
+    use_proxy: no
     url: "{{ zeppelin_download_url }}"
     dest: "/tmp/zeppelin-{{ zeppelin_version }}.tgz"
-  when: zeppelin_install_path.stat.exists == False
+#    checksum: md5:{{ spark_binary_md5 }}
 
 - name: Extract Zeppelin into the install directory
   unarchive:
