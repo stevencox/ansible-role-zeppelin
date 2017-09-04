@@ -159,6 +159,7 @@
 
 - name: Change the service_control fact to True
   set_fact: service_control=True
+  when: stars == False
   tags:
      - service
 
@@ -189,5 +190,6 @@
     name: zeppelin
     state: started
     enabled: yes
+  when: stars == False
   tags:
      - service
